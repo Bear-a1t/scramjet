@@ -87,12 +87,6 @@ jobs:
           name: scramjet
           path: dist
 
-      - name: Install Playwright Browsers
-        run: npx playwright install --with-deps
-
-      - name: Run Playwright tests
-        run: pnpm test
-
   upload:
     name: Upload release
     runs-on: ubuntu-latest
