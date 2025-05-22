@@ -1,4 +1,5 @@
 const scramjet = new ScramjetController({
+	inject: "<script>alert(`hi`)</script>
 	files: {
 		wasm: "/scram/scramjet.wasm.wasm",
 		worker: "/scram/scramjet.worker.js",
