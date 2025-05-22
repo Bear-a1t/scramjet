@@ -37,6 +37,7 @@ type ScramjetFlags = {
 
 interface ScramjetConfig {
 	prefix: string;
+	inject: string;
 	globals: {
 		wrapfn: string;
 		wrapthisfn: string;
