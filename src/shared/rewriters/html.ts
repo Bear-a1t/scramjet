@@ -60,7 +60,7 @@ export function rewriteHtml(
 			script($scramjet.config.files.wasm),
 			script($scramjet.config.files.shared),
 			script("data:application/javascript;base64," + base64Injected),
-			script($scramjet.config.files.client)
+			script($scramjet.config.files.client),
 			script($scramjet.config.inject)
 		);
 	
