@@ -23,6 +23,11 @@ import { SCRAMJETCLIENT, SCRAMJETFRAME } from "./symbols";
 import { ScramjetClient } from "./client/client";
 import { ScramjetFrame } from "./controller/frame";
 
+type InjectTypes =
+	| string
+	| { src: string }
+	| { content: string };
+
 type ScramjetFlags = {
 	serviceworkers: boolean;
 	syncxhr: boolean;

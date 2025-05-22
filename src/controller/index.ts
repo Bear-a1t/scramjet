@@ -9,7 +9,7 @@ export class ScramjetController {
 		// sane ish defaults
 		const defaultConfig: ScramjetConfig = {
 			prefix: "/scramjet/",
-			inject: "", // nothing for default 
+			inject: "",
 			globals: {
 				wrapfn: "$scramjet$wrap",
 				wrapthisfn: "$scramjet$wrapthis",

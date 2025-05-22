@@ -7,6 +7,7 @@ import { rewriteJs } from "./js";
 import { CookieStore } from "../cookie";
 import { unrewriteBlob } from "../../shared/rewriters/url";
 import { $scramjet } from "../../scramjet";
+import { InjectTypes } from "../../types";
 
 const encoder = new TextEncoder();
 export function rewriteHtml(
@@ -21,6 +22,28 @@ export function rewriteHtml(
 	parser.write(html);
 	parser.end();
 	traverseParsedHtml(handler.root, cookieStore, meta);
+
+
+function inject(head: Element) {
+	const input = $scramjet.config.inject as InjectTypes;
+	if (!input) return;
+
+	const scriptEl =
+		typeof input === "string"
+			? new Element("script", {}, [
+					{ data: input, type: "text" } as any,
+			  ])
+			: "src" in input
+			? new Element("script", { src: input.src })
+			: "content" in input
+			? new Element("script", {}, [
+					{ data: input.content, type: "text" } as any,
+			  ])
+			: null;
+
+	if (scriptEl) head.children.unshift(scriptEl);
+}
+
 
 	function findhead(node) {
 		if (node.type === ElementType.Tag && node.name === "head") {
@@ -55,14 +78,13 @@ export function rewriteHtml(
 
 		// for compatibility purpose
 		const base64Injected = bytesToBase64(encoder.encode(injected));
-
 		head.children.unshift(
 			script($scramjet.config.files.wasm),
 			script($scramjet.config.files.shared),
 			script("data:application/javascript;base64," + base64Injected),
-			script($scramjet.config.files.client),
-			script($scramjet.config.inject)
+			script($scramjet.config.files.client)
 		);
+		inject(head)
 	
 	}
 
